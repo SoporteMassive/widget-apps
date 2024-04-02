@@ -1,0 +1,35 @@
+.container {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 1 1 33%;
+  min-width: 300px;
+  padding: 10px 20px;
+}
+
+.position .title {
+  text-transform: capitalize;
+}
+
+.position-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spinner-container {
+  height: calc(100vh - 100px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+  }
+}

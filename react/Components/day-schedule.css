@@ -1,0 +1,25 @@
+.schedule {
+
+}
+
+.schedule-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.start-time {
+
+}
+
+.end-time {
+
+}
+
+.start-time,
+.end-time {
+  width: 33%;
+}
+
+.status {
+  width: 30%;
+}

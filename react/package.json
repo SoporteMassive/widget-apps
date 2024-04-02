@@ -1,0 +1,23 @@
+{
+  "name": "vtex.admin-ui-widgets",
+  "version": "0.0.1",
+  "devDependencies": {
+    "@types/faker": "^5.5.9",
+    "@types/node": "^11.12.1",
+    "@types/react": "^18.0.0",
+    "@vtex/tsconfig": "^0.4.4",
+    "massivespacenew.admin-ui-widgets": "https://devjrg--massivespacenew.myvtex.com/_v/private/typings/linked/v1/massivespacenew.admin-ui-widgets@0.0.1+build1712020926/public/@types/massivespacenew.admin-ui-widgets",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "typescript": "3.9.7",
+    "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.2/public/@types/vtex.render-runtime",
+    "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.9/public/@types/vtex.styleguide"
+  },
+  "dependencies": {
+    "@types/react-dom": "^18.2.23",
+    "@vtex/admin-ui": "^0.124.0",
+    "axios": "^1.6.8",
+    "faker": "^5.5.3",
+    "react-intl": "^5.21.0"
+  }
+}

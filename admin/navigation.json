@@ -1,0 +1,12 @@
+{
+  "section": "storeFront",
+  "titleId": "admin/admin-widgets.navigation.label-group",
+  "adminVersion": 4,
+  "subSection": "widgets",
+  "subSectionItems": [
+    {
+      "labelId": "admin/admin-widgets-whatsapp.navigation.label-main",
+      "path": "/admin/widgets/whatsapp"
+    }
+  ]
+}

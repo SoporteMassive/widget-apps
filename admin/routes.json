@@ -1,0 +1,6 @@
+{
+  "admin.app.widgets": {
+    "component": "AdminWidgets",
+    "path": "/admin/app/widgets/whatsapp"
+  }
+}
