@@ -7,14 +7,27 @@ import phoneIcon from '../../assets/phone-call.svg'
 import AdminApi from '../Adapters/AdminApi';
 import { useRuntime } from 'vtex.render-runtime';
 import { Widget, Option } from './../Interfaces/types';
-import { Input, Button } from 'vtex.styleguide';
+import { Input } from 'vtex.styleguide';
 
 const WhatsAppWidget = () => {
   const [widget, setWidget] = useState<Widget | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [optionId, setOptionId] = useState<number | string>('');
   const [buttonStyle, setButtonStyle] = useState({});
   const [modalStyle, setModalStyle] = useState({});
+  const [phoneNumber, setPhoneNumber] = useState<string | null>(null)
+  const [name, setName] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+  const [sending, setSending] = useState<boolean>(false)
+
+  const validationResults = useMemo(() => {
+    if (!phoneNumber) return false;
+    const normalizedNumber = phoneNumber.replace(/\D/g, '');
+    const pattern = /^(?:\+?57)?[ -]?3\d{9}$|^(?:\+?5[0-9])?[ -]?\d{7,9}$/;
+    const validated = pattern.test(normalizedNumber);
+    return validated && name.length >= 3;
+  }, [phoneNumber, name]);
 
   const adminApi = new AdminApi();
   const { account } = useRuntime();
@@ -103,7 +116,6 @@ const WhatsAppWidget = () => {
 
         return { ...defaultStyle, ...styles };
       };
-      // let styles: React.CSSProperties = {};
       setModalStyle(calculateModalStyles());
 
     }
@@ -118,8 +130,24 @@ const WhatsAppWidget = () => {
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
-  const callMeBack = () => {
-    console.log('CallMeBack');
+  const showFormCallMe = (id: number | string) => {
+    setShowForm(true);
+    setOptionId(id);
+  }
+
+  const callMeBack = async () => {
+    setSending(true);
+    const data = {
+      "number": phoneNumber,
+      "id": optionId
+    };
+    const DATA = await adminApi.callPost(`whats-app-widget/${account}/call-me-back`, data);
+    setMessage(DATA.message);
+    setShowForm(false);
+    setTimeout(() => setMessage(''), 5000);
+    setPhoneNumber('');
+    setName('');
+    setSending(false);
   };
 
   const renderWidget = () => (
@@ -137,13 +165,13 @@ const WhatsAppWidget = () => {
             ! showForm ?
             <div className={style['modal-options']}>
               {
-                !!widget?.options.length &&
+                !!widget?.options.length && !message &&
                   widget.options.map((option: Option) => (
                     <div 
                       key={option.id}
                       className={style['modal-option']} 
                       style={{ backgroundColor: option.background_color }}
-                      onClick={() => option.type === 'whatsapp' ? redirectToWhatsApp(option.mobile_phone ?? '') : setShowForm(true)}
+                      onClick={() => option.type === 'whatsapp' ? redirectToWhatsApp(option.mobile_phone ?? '') : showFormCallMe(option.id)}
                     >
                       <span className={`${style['icon']}`}>
                         {
@@ -159,6 +187,12 @@ const WhatsAppWidget = () => {
                     </div>
                   ))
               }
+              {
+                !!message &&
+                <div className={`w-100 m2 ${style['message-container']}`}>
+                    {message}
+                  </div> 
+              }
             </div>
             :
             <div className={style['modal-form']}>
@@ -168,17 +202,28 @@ const WhatsAppWidget = () => {
               <div className="mb5">
                 <Input
                   placeholder="Nombre *"
+                  value={name}
+                  onChange={(e: React.FormEvent<HTMLInputElement>) => setName(e.currentTarget.value)}
                 />
               </div>
               <div className="mb5">
                 <Input
                   placeholder="Número de teléfono *"
+                  value={phoneNumber}
+                  onChange={(e: React.FormEvent<HTMLInputElement>) => setPhoneNumber(e.currentTarget.value)}
                 />
               </div>
               <div className="mb5">
                 <div className="mb4 flex justify-end">
-                  <Button variation="secondary" size="regular" onClick={() => setShowForm(false)}>Cancelar</Button>
-                  <Button variation="prumary" size="regular" onClick={() => callMeBack()}>Enviar</Button>
+                  <button 
+                      className={`mr3 ${style['button']} ${style['button--secondary']}`}
+                      onClick={() => setShowForm(false)} 
+                    >Cancelar</button>
+                  <button 
+                      className={`${style['button']} ${style['button--primary']}`}
+                      onClick={() => callMeBack()}
+                      disabled={!validationResults || sending}
+                    >Enviar</button>
                 </div>
               </div>
 

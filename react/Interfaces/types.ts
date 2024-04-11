@@ -33,7 +33,7 @@ export interface Widget {
 }
 
 export interface Option {
-  id: number;
+  id: number | string;
   order: number;
   title: string;
   message: string;

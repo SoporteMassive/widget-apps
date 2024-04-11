@@ -46,7 +46,7 @@ const AdminWidgets = () => {
   const [timeZoneSelected, setTimeZoneSelected] = useState<TimeZoneOption | {}>({});
   const [typeWidgets, setTypeWidgets] = useState<TypeWidget[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [optionId, setOptionId] = useState<number>(0);
+  const [optionId, setOptionId] = useState<number | string>(0);
   const [option, setOption] = useState<Option | null>(null);
 
   const adminApi = new AdminApi();
@@ -157,7 +157,7 @@ const AdminWidgets = () => {
     }
   };
   
-  const updateOptions = (options: Option[], option: Option, id: number): Option[] => {
+  const updateOptions = (options: Option[], option: Option, id: number | string): Option[] => {
     return options.map((item: Option) => item.id === id ? option : item);
   };
 
@@ -445,12 +445,12 @@ const AdminWidgets = () => {
                             <div className="mb5">
                               <h2>Opciones</h2>
                             </div>
-                            <div className="mb5">
+                            <div className="mb5" key={whatsAppWidget?.options?.length}>
                               { !!whatsAppWidget?.options?.length && <WidgetOptions 
                                   options={whatsAppWidget?.options} 
-                                  optionId={optionId} 
-                                  setOptionId={setOptionId} 
                                   typeWidgets={typeWidgets}
+                                  setOptionId={setOptionId} 
+                                  onChangeAttributes={onChangeAttributes}
                                 /> 
                               }
                             </div>
