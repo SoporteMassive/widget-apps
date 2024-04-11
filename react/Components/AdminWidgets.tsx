@@ -48,6 +48,7 @@ const AdminWidgets = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [optionId, setOptionId] = useState<number | string>(0);
   const [option, setOption] = useState<Option | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const adminApi = new AdminApi();
 
@@ -67,7 +68,12 @@ const AdminWidgets = () => {
   const updateWhatsAppWidget = async () => {
     setIsLoading(true)
     const DATA = await adminApi.callPut(`whats-app-widget/${account}/admin/${whatsAppWidget?.id}`, whatsAppWidget);
-    setWhatsAppWidget(DATA.data);
+    if (DATA.success) {
+      setWhatsAppWidget(DATA.data);
+      setError(null);
+    } else {
+      setError(DATA.message);
+    }
     setIsLoading(false)
   }
 
@@ -236,9 +242,12 @@ const AdminWidgets = () => {
 
           <div style={{ padding: '0 4rem' }}>
             {
+              !!error && <div><span>{ error }</span></div>
+            }
+            {
               isLoading 
               ? <div className={`w-100 ${style['spinner-container']}`}> <Spinner /> </div>
-              : <DataView state={view}>
+              : !error && <DataView state={view}>
                   <Tabs fullWidth>
                     <Tab
                       label="General"
