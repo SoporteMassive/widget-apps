@@ -100,7 +100,7 @@ const WidgetOption: React.FC<WidgetOptionsInterface> = ({ option, typeWidgets, o
           size="small" 
           label="Ícono" 
           value={option.image}
-          onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e.currentTarget.value, 'icono')}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e.currentTarget.value, 'image')}
         />
       </div>
       <div>

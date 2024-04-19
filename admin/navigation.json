@@ -5,8 +5,12 @@
   "subSection": "widgets",
   "subSectionItems": [
     {
-      "labelId": "admin/admin-widgets-whatsapp.navigation.label-main",
-      "path": "/admin/widgets/whatsapp"
+      "labelId": "admin/admin-widgets-whatsapp-float.navigation.label-main",
+      "path": "/admin/widgets/whatsapp-float"
+    },
+    {
+      "labelId": "admin/admin-widgets-whatsapp-pdp.navigation.label-main",
+      "path": "/admin/widgets/whatsapp-pdp"
     }
   ]
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRuntime } from 'vtex.render-runtime';
 import { defineMessages, useIntl } from 'react-intl';
 import {
+  Alert,
   Button,
   Input,
   Tabs,
@@ -33,7 +34,7 @@ const [ThemeProvider] = createSystem({
 
 const messages = defineMessages({
   title: {
-    id: 'admin/admin-widgets-whatsapp.title',
+    id: 'admin/admin-widgets-whatsapp-float.title',
   },
 });
 
@@ -62,18 +63,19 @@ const AdminWidgets = () => {
 
   const getWhatsAppWidget = async () => {
     const DATA = await adminApi.callGet(`whats-app-widget/${account}/admin`, {});
-    setWhatsAppWidget(DATA.data);
-  }
-
-  const updateWhatsAppWidget = async () => {
-    setIsLoading(true)
-    const DATA = await adminApi.callPut(`whats-app-widget/${account}/admin/${whatsAppWidget?.id}`, whatsAppWidget);
+    console.log({DATA});
     if (DATA.success) {
       setWhatsAppWidget(DATA.data);
       setError(null);
     } else {
       setError(DATA.message);
     }
+  }
+
+  const updateWhatsAppWidget = async () => {
+    setIsLoading(true)
+    const DATA = await adminApi.callPut(`whats-app-widget/${account}/admin/${whatsAppWidget?.id}`, whatsAppWidget);
+    setWhatsAppWidget(DATA.data);
     setIsLoading(false)
   }
 
@@ -232,17 +234,27 @@ const AdminWidgets = () => {
             </PageTitle>
 
             <PageActions>
-              <span className="mr4">
-                <Button variation="primary" size="small" onClick={() => updateWhatsAppWidget()}>
-                  Actualizar
-                </Button>
-              </span>
+              {
+                !error &&
+                <span className="mr4">
+                  <Button variation="primary" size="small" onClick={() => updateWhatsAppWidget()}>
+                    Actualizar
+                  </Button>
+                </span>
+              }
             </PageActions>
           </PageHeader>
 
           <div style={{ padding: '0 4rem' }}>
             {
-              !!error && <div><span>{ error }</span></div>
+              !!error &&
+                <div style={{marginTop: '30px'}}>
+                  <span>
+                    <Alert type="error" onClose={() => console.log('Closed!')}>
+                      { error }
+                    </Alert>
+                  </span>
+                </div>
             }
             {
               isLoading 

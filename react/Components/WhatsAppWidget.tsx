@@ -4,13 +4,14 @@ import style from './whats-app-widget.css';
 import whatsAppIcon from './../../assets/whats-app.svg'
 import closeIcon from '../../assets/close.svg'
 import phoneIcon from '../../assets/phone-call.svg'
-import AdminApi from '../Adapters/AdminApi';
+import PublicApi from '../Adapters/PublicApi';
 import { useRuntime } from 'vtex.render-runtime';
 import { Widget, Option } from './../Interfaces/types';
 import { Input } from 'vtex.styleguide';
 
 const WhatsAppWidget = () => {
   const [widget, setWidget] = useState<Widget | null>(null);
+  const [showWidget, setShowWidget] = useState<boolean>(false)
   const [modalOpen, setModalOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [optionId, setOptionId] = useState<number | string>('');
@@ -19,30 +20,36 @@ const WhatsAppWidget = () => {
   const [phoneNumber, setPhoneNumber] = useState<string | null>(null)
   const [name, setName] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const [sending, setSending] = useState<boolean>(false)
+  const [sending, setSending] = useState<boolean>(false);
 
-  const validationResults = useMemo(() => {
+  const validationName = useMemo(() => name.length >= 3, [name]);
+
+  const validationPhoneNumber = useMemo(() => {
     if (!phoneNumber) return false;
     const normalizedNumber = phoneNumber.replace(/\D/g, '');
-    const pattern = /^(?:\+?57)?[ -]?3\d{9}$|^(?:\+?5[0-9])?[ -]?\d{7,9}$/;
-    const validated = pattern.test(normalizedNumber);
-    return validated && name.length >= 3;
-  }, [phoneNumber, name]);
+    const pattern = /^(?:\+?573\d{9}|3\d{9})$/;
+    return pattern.test(normalizedNumber);
+  }, [phoneNumber]);
 
-  const adminApi = new AdminApi();
+  const validationResults = useMemo(() => {
+    return validationName && validationPhoneNumber;
+  }, [validationName, validationPhoneNumber]);
+
+  const publicApi = new PublicApi();
   const { account } = useRuntime();
 
   useEffect(() => {
     const getWhatsAppWidget = async () => {
-      const DATA = await adminApi.callGet(`whats-app-widget/${account}`, {});
+      const DATA = await publicApi.callGet(`whats-app-widget/${account}`, {});
       setWidget(DATA.data.widget);
+      setShowWidget(DATA?.data?.active && !!DATA?.data?.widget?.options?.length);
     };
 
     getWhatsAppWidget();
   }, [account]);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && typeof document !== "undefined") {
+    if (typeof window !== "undefined" && typeof document !== "undefined" && showWidget) {
       const calculatePositionStyles = () => {
         if (!widget) return {};
         let styles: React.CSSProperties = {};
@@ -119,7 +126,7 @@ const WhatsAppWidget = () => {
       setModalStyle(calculateModalStyles());
 
     }
-  }, [widget])
+  }, [widget, showWidget])
 
   const toggleModal = () => setModalOpen(!modalOpen);
 
@@ -141,7 +148,7 @@ const WhatsAppWidget = () => {
       "number": phoneNumber,
       "id": optionId
     };
-    const DATA = await adminApi.callPost(`whats-app-widget/${account}/call-me-back`, data);
+    const DATA = await publicApi.callPost(`whats-app-widget/${account}/call-me-back`, data);
     setMessage(DATA.message);
     setShowForm(false);
     setTimeout(() => setMessage(''), 5000);
@@ -176,8 +183,8 @@ const WhatsAppWidget = () => {
                       <span className={`${style['icon']}`}>
                         {
                           option.type === 'whatsapp'
-                          ? <img className={style['image']} src={whatsAppIcon} alt="WhatsApp" />
-                          : <img className={style['image']} src={phoneIcon} alt="WhatsApp" />
+                          ? <img className={style['image']} src={option?.image ?? whatsAppIcon} alt="WhatsApp" />
+                          : <img className={style['image']} src={option?.image ?? phoneIcon} alt="WhatsApp" />
                         }
                       </span>
                       <div className={style['option-content']} style={{ color: option.font_color }}>
@@ -209,6 +216,7 @@ const WhatsAppWidget = () => {
               <div className="mb5">
                 <Input
                   placeholder="Número de teléfono *"
+                  type="number"
                   value={phoneNumber}
                   onChange={(e: React.FormEvent<HTMLInputElement>) => setPhoneNumber(e.currentTarget.value)}
                 />
@@ -233,6 +241,10 @@ const WhatsAppWidget = () => {
       )}
     </div>
   );
+
+  if (!showWidget) {
+    return null;
+  }
 
   return typeof document === "undefined"
     ? null

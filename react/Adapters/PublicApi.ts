@@ -1,7 +1,6 @@
 import axios, { Method } from "axios";
-import { getTokenId } from "../Helpers/user-logged";
 
-class AdminApi {
+class PublicApi {
   private API: string;
 
   constructor() {
@@ -10,7 +9,6 @@ class AdminApi {
 
   private async callIntegration(path: string, method: Method, data: any = {}, params?: any): Promise<{ success: boolean; message: string; data: any | null }> {
     try {
-      const API_KEY = await getTokenId();
       const response = await axios({
         method: method,
         url: `${this.API}${path}`,
@@ -19,8 +17,7 @@ class AdminApi {
         timeout: 3 * 60 * 1000,
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'token-id': API_KEY
+          'Content-Type': 'application/json'
         }
       });
 
@@ -49,4 +46,4 @@ class AdminApi {
   public callPut = async (path: string, data: any) => this.callIntegration(path, 'PUT', data);
 }
 
-export default AdminApi;
+export default PublicApi;

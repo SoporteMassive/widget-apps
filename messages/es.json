@@ -1,5 +1,7 @@
 {
   "admin/admin-widgets.navigation.label-group": "Admin Widgets Services",
-  "admin/admin-widgets-whatsapp.navigation.label-main": "WhatsApp Widget",
-  "admin/admin-widgets-whatsapp.title": "Administrador de Widget de WhatsApp"
+  "admin/admin-widgets-whatsapp-float.navigation.label-main": "WhatsApp Widget",
+  "admin/admin-widgets-whatsapp-float.title": "Administrador de Widget de WhatsApp",
+  "admin/admin-widgets-whatsapp-pdp.navigation.label-main": "WhatsApp PDP",
+  "admin/admin-widgets-whatsapp-pdp.title": "Administrador de WhatsApp PDP"
 }

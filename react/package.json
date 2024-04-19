@@ -6,7 +6,6 @@
     "@types/node": "^11.12.1",
     "@types/react": "^18.0.0",
     "@vtex/tsconfig": "^0.4.4",
-    "massivespacenew.admin-ui-widgets": "https://devjrg--massivespacenew.myvtex.com/_v/private/typings/linked/v1/massivespacenew.admin-ui-widgets@0.0.1+build1712020926/public/@types/massivespacenew.admin-ui-widgets",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "typescript": "3.9.7",

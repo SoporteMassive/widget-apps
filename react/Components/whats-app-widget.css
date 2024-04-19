@@ -136,6 +136,10 @@
   background-color: #1b1b1b; /* Color hover para primario */
 }
 
+.button--primary[disabled] {
+  opacity: 0.5; /* Ajusta el valor de opacidad si está deshabilitado */
+}
+
 .button--secondary {
   color: #424242; /* Color de texto para secundario */
   background-color: transparent;
