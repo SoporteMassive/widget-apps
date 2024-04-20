@@ -214,6 +214,12 @@ const WhatsAppWidget = () => {
                 />
               </div>
               <div className="mb5">
+                  {
+                    validationPhoneNumber && !validationName &&
+                      <h5 className="mt2 mb2" style={{color: 'red'}}>El nombre debe contener al menos 3 caracteres.</h5>
+                  }
+              </div>
+              <div className="mb5">
                 <Input
                   placeholder="Número de teléfono *"
                   type="number"
@@ -223,8 +229,8 @@ const WhatsAppWidget = () => {
               </div>
               <div className="mb5">
                   {
-                    typeof phoneNumber === 'string' && phoneNumber.length >= 10 && !validationResults &&
-                      <h5 className="mt2 mb2" style={{color: 'red'}}> El número de teléfono móvil ingresado no es válido.</h5>
+                    typeof phoneNumber === 'string' && phoneNumber.length >= 10 && !validationPhoneNumber &&
+                      <h5 className="mt2 mb2" style={{color: 'red'}}>El número de teléfono móvil ingresado no es válido.</h5>
                   }
               </div>
               <div className="mb5">
