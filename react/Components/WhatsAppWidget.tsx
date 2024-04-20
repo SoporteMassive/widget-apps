@@ -222,6 +222,12 @@ const WhatsAppWidget = () => {
                 />
               </div>
               <div className="mb5">
+                  {
+                    typeof phoneNumber === 'string' && phoneNumber.length >= 10 && !validationResults &&
+                      <h5 className="mt2 mb2" style={{color: 'red'}}> El número de teléfono móvil ingresado no es válido.</h5>
+                  }
+              </div>
+              <div className="mb5">
                 <div className="mb4 flex justify-end">
                   <button 
                       className={`mr3 ${style['button']} ${style['button--secondary']}`}

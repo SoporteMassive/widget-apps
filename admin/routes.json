@@ -1,9 +1,9 @@
 {
-  "admin.app.widgets.whatsapp-float": {
+  "admin.app.widgets-whatsapp-float": {
     "component": "AdminWidgets",
     "path": "/admin/app/widgets/whatsapp-float"
   },
-  "admin.app.widgets.whatsapp-pdp": {
+  "admin.app.widgets-whatsapp-pdp": {
     "component": "AdminWhatsAppButton",
     "path": "/admin/app/widgets/whatsapp-pdp"
   }
