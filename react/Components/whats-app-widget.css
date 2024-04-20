@@ -12,7 +12,8 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  z-index: 999;
+  box-shadow: 0px 0px 10px #3f3f40;
+  z-index: 9999;
 }
 
 .modal-container {
@@ -22,7 +23,7 @@
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   font-family: Arial, sans-serif;
   border-radius: 8px !important;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .modal-header {
