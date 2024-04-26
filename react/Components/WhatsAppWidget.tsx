@@ -167,6 +167,9 @@ const WhatsAppWidget = () => {
           <div className={style['modal-header']} style={{ backgroundColor: widget?.header_color }}>
             <h2>{ widget?.header_title }</h2>
             <p>{ widget?.header_subtitle }</p>
+            <span className={style['close-head-modal']} onClick={toggleModal}>
+              <img className={style['icon-close-head-modal']} src={closeIcon} />
+            </span>
           </div>
           {
             ! showForm ?
