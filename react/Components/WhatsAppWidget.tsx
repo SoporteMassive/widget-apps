@@ -71,7 +71,6 @@ const WhatsAppWidget = () => {
       const calculateModalStyles = () => {
         let defaultStyle = {
           position: 'fixed',
-          top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
           msTransform: 'translate(-50%, -50%)', // Para IE 9
@@ -89,10 +88,9 @@ const WhatsAppWidget = () => {
           position.forEach(pos => {
             if (pos.active && ['top', 'bottom'].includes(pos.position)) {
               const value = pos.type === 'percentage' ? `${pos.value}%` : `${pos.value}px`;
-              const final = `calc(${value} + 50px)`;
+              const final = `calc(${value} + 60px)`;
               defaultStyle = { ...defaultStyle, [pos.position]: final };
-              const adjust = pos.position === 'bottom' ? '40' : '0';
-              const transform = `translate(-50%, calc(${value} + ${adjust}px))`;
+              const transform = 'translate(-50%, 0)';
               defaultStyle = {
                 ...defaultStyle,
                 ['transform']: transform,
@@ -117,7 +115,6 @@ const WhatsAppWidget = () => {
         if (Object.keys(styles).length) {
           delete defaultStyle.transform;
           delete defaultStyle.msTransform;
-          delete defaultStyle.top;
           delete defaultStyle.left;
         }
 
@@ -132,8 +129,8 @@ const WhatsAppWidget = () => {
 
   const iconSrc = useMemo(() => modalOpen ? closeIcon : whatsAppIcon, [modalOpen]);
 
-  const redirectToWhatsApp = (mobileNumber: string) => {
-    const whatsappUrl = `https://api.whatsapp.com/send/?phone=${mobileNumber}&text&type=phone_number&app_absent=0`;
+  const redirectToWhatsApp = (mobileNumber: string, predefinedMessage: string) => {
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=${mobileNumber}&text=${predefinedMessage}&type=phone_number&app_absent=0`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
@@ -181,7 +178,7 @@ const WhatsAppWidget = () => {
                       key={option.id}
                       className={style['modal-option']} 
                       style={{ backgroundColor: option.background_color }}
-                      onClick={() => option.type === 'whatsapp' ? redirectToWhatsApp(option.mobile_phone ?? '') : showFormCallMe(option.id)}
+                      onClick={() => option.type === 'whatsapp' ? redirectToWhatsApp(option.mobile_phone ?? '', option.predefined_message ?? '') : showFormCallMe(option.id)}
                     >
                       <span className={`${style['icon']}`}>
                         {

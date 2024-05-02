@@ -38,6 +38,7 @@ export interface Option {
   title: string;
   message: string;
   mobile_phone?: string;
+  predefined_message?: string;
   queue?: number;
   background_color: string;
   type: string;

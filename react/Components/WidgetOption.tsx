@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Option, Color, TypeWidget } from '../Interfaces/types';
-import { Input, ColorPicker, Toggle, EXPERIMENTAL_Select as Select } from 'vtex.styleguide'
+import { Input, Textarea, ColorPicker, Toggle, EXPERIMENTAL_Select as Select } from 'vtex.styleguide'
 
 interface WidgetOptionsInterface {
   option: Option;
@@ -32,12 +32,12 @@ const WidgetOption: React.FC<WidgetOptionsInterface> = ({ option, typeWidgets, o
       </div>
       <div className="mb5">
         <Input 
-          placeholder="Escribe un mensaje" 
+          placeholder="Escribe una descripción" 
           size="small" 
-        label="Mensaje" 
-        value={option.message}
-        onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e.currentTarget.value, 'message')}
-      />
+          label="Descripción" 
+          value={option.message}
+          onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e.currentTarget.value, 'message')}
+        />
       </div>
       <div className="mb5">
         <Select
@@ -56,10 +56,23 @@ const WidgetOption: React.FC<WidgetOptionsInterface> = ({ option, typeWidgets, o
         <div className="mb5">
           <Input 
             placeholder="Digita el # móvil"
+            type="number"
             size="small" 
             label="Número de WhatsApp"
             value={option.mobile_phone}
             onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e.currentTarget.value, 'mobile_phone')}
+          />
+        </div>
+      }
+      {
+        option?.type === 'whatsapp' &&
+        <div className="mb5">
+          <Textarea
+            placeholder="Escrie un mensaje predeterminado"
+            size="small" 
+            label="Mensaje predeterminado"
+            value={option.predefined_message}
+            onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e.currentTarget.value, 'predefined_message')}
           />
         </div>
       }
