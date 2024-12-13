@@ -127,7 +127,7 @@ const WhatsAppWidget = () => {
 
   const toggleModal = () => setModalOpen(!modalOpen);
 
-  const iconSrc = useMemo(() => modalOpen ? closeIcon : whatsAppIcon, [modalOpen]);
+  const iconSrc = useMemo(() => modalOpen ? closeIcon : (widget?.image?.trim() ? widget.image : whatsAppIcon), [modalOpen, widget]);
 
   const redirectToWhatsApp = (mobileNumber: string, predefinedMessage: string) => {
     const whatsappUrl = `https://api.whatsapp.com/send/?phone=${mobileNumber}&text=${predefinedMessage}&type=phone_number&app_absent=0`;
