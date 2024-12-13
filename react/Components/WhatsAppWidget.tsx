@@ -157,7 +157,7 @@ const WhatsAppWidget = () => {
   const renderWidget = () => (
     <div className={style['widget-container']}>
       <button className={style['widget-button']} onClick={toggleModal} style={buttonStyle} title={widget?.button_title}>
-        <img src={iconSrc} alt="WhatsApp" />
+        <img src={iconSrc} alt="WhatsApp" className={style['widget-icon']} />
       </button>
       {modalOpen && (
         <div className={style['modal-container']} style={modalStyle}>
