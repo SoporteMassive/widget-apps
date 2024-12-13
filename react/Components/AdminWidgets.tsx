@@ -309,20 +309,33 @@ const AdminWidgets = () => {
                             </div>
                             <div className="mb0">
                               <ColorPicker
-                                label="Seleccione"
-                                title="Color del botón"
-                                color={{hex: whatsAppWidget?.button_color ?? '#FFF'}}
-                                onChange={(color:Color) => onChangeColor(color, 'button_color')}
-                                colorHistory={colorHistory}
+                                  label="Seleccione"
+                                  title="Color del botón"
+                                  color={{hex: whatsAppWidget?.button_color ?? '#FFF'}}
+                                  onChange={(color: Color) => onChangeColor(color, 'button_color')}
+                                  colorHistory={colorHistory}
                               />
                             </div>
                             <div className="mb0">
                               <ColorPicker
-                                label="Seleccione"
-                                title="Color del header"
-                                color={{hex: whatsAppWidget?.header_color ?? '#FFF'}}
-                                onChange={(color:Color) => onChangeColor(color, 'header_color')}
-                                colorHistory={colorHistory}
+                                  label="Seleccione"
+                                  title="Color del header"
+                                  color={{hex: whatsAppWidget?.header_color ?? '#FFF'}}
+                                  onChange={(color: Color) => onChangeColor(color, 'header_color')}
+                                  colorHistory={colorHistory}
+                              />
+                            </div>
+                            <div className="mb5">
+                              <h2>Imagen/Ícono</h2>
+                            </div>
+                            <div className="mb5">
+                              <Input
+                                  placeholder="Url del ícono (opcional)"
+                                  size="large"
+                                  label="Url del ícono del widget"
+                                  value={whatsAppWidget?.image}
+                                  name="image"
+                                  onChange={(e: React.FormEvent<HTMLInputElement>) => handleChange(e)}
                               />
                             </div>
                             <div className="mb5">
@@ -330,14 +343,14 @@ const AdminWidgets = () => {
                           </div>
                         </div>
                         <div className={`${style.column}`}>
-                            <div className="mb5">
-                              <h2>Posición Desktop</h2>
-                            </div>
-                            {
+                          <div className="mb5">
+                            <h2>Posición Desktop</h2>
+                          </div>
+                          {
                               !!whatsAppWidget?.position?.desktop &&
-                                whatsAppWidget.position.desktop.map((position:PositionDetails, index: number) => (
+                              whatsAppWidget.position.desktop.map((position: PositionDetails, index: number) => (
                                   <div key={index} className={`mb5 ${style.position}`}>
-                                    <div className="">
+                                  <div className="">
                                       <h3 className={style.title}>{position.position}</h3>
                                       <div className={`${style['position-form']}`}>
                                         <div className="mt3 w-25">
