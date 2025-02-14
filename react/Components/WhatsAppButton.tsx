@@ -1,7 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
-import whatsAppIcon from './../../assets/Icon-WhatsApp.png'
-import PublicApi from '../Adapters/PublicApi'
 import { useRuntime } from 'vtex.render-runtime'
+
+import whatsAppIcon from '../../assets/Icon-WhatsApp.png'
+import PublicApi from '../Adapters/PublicApi'
 
 const WhatsAppButton: React.FC = () => {
   const [show, setShow] = useState(false)
@@ -18,11 +23,13 @@ const WhatsAppButton: React.FC = () => {
         `whats-app/${account}/active-schedule-status`,
         {}
       )
+
       if (!DATA.success) {
         throw new Error(`Error: ${DATA.message}`)
       }
 
       const data = await DATA.data
+
       setMobilePhone(data?.mobile_phone)
       setShow(data?.active)
     } catch (error) {
@@ -37,11 +44,12 @@ const WhatsAppButton: React.FC = () => {
     const whatsappUrl = `https://wa.me/${mobilePhone}?text=${encodeURIComponent(
       message
     )}`
+
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
   }
 
   useEffect(() => {
-    if (!!account) {
+    if (account) {
       validateWhatsAppAvailability()
     }
   }, [account])
@@ -53,16 +61,16 @@ const WhatsAppButton: React.FC = () => {
     justifyContent: 'center',
     width: '100%',
     textDecoration: 'none',
-    border: '1px solid #bbb',
-    height: '3rem',
+    border: 'none',
+    height: '2.8rem',
     transition: 'all 0.3s ease',
     cursor: 'pointer',
-    borderRadius: '20px',
+    backgroundColor: '#E5E5E5',
   }
 
   const hoveredStyle = {
-    backgroundColor: '#fff',
-    color: 'black',
+    backgroundColor: '#E5E5E5',
+    color: '#333',
   }
 
   if (!show) {
@@ -86,9 +94,9 @@ const WhatsAppButton: React.FC = () => {
       />
       <span
         style={{
-          textTransform: 'none',
-          fontFamily: 'Montserrat-Bold',
-          fontSize: '15px',
+          textTransform: 'uppercase',
+          fontFamily: 'WorkSans-Regular',
+          fontSize: '12px',
           padding: '5px 0px',
         }}
       >
