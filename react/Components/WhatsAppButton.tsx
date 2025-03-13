@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRuntime } from 'vtex.render-runtime'
 
-import whatsAppIcon from '../../assets/Icon-WhatsApp.png'
+import whatsAppIcon from '../../assets/whatsapp.png'
 import PublicApi from '../Adapters/PublicApi'
 
 const WhatsAppButton: React.FC = () => {
@@ -66,11 +66,14 @@ const WhatsAppButton: React.FC = () => {
     transition: 'all 0.3s ease',
     cursor: 'pointer',
     backgroundColor: '#E5E5E5',
+    marginTop: '1rem',
+    marginBottom: '0.7rem',
+    borderRadius: '10px',
   }
 
   const hoveredStyle = {
-    backgroundColor: '#E5E5E5',
-    color: '#333',
+    backgroundColor: '#127f34',
+    color: '#fff',
   }
 
   if (!show) {
@@ -95,7 +98,7 @@ const WhatsAppButton: React.FC = () => {
       <span
         style={{
           textTransform: 'uppercase',
-          fontFamily: 'WorkSans-Regular',
+          fontFamily: 'Quicksand-Regular',
           fontSize: '12px',
           padding: '5px 0px',
         }}
