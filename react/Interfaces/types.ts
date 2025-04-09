@@ -27,6 +27,7 @@ export interface Widget {
   header_subtitle: string;
   button_color: string;
   header_color: string;
+  image: string;
   position: Position;
   options: Option[];
   schedules?: Schedule[];

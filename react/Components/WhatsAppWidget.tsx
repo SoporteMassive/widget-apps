@@ -127,7 +127,7 @@ const WhatsAppWidget = () => {
 
   const toggleModal = () => setModalOpen(!modalOpen);
 
-  const iconSrc = useMemo(() => modalOpen ? closeIcon : whatsAppIcon, [modalOpen]);
+  const iconSrc = useMemo(() => modalOpen ? closeIcon : (widget?.image?.trim() ? widget.image : whatsAppIcon), [modalOpen, widget]);
 
   const redirectToWhatsApp = (mobileNumber: string, predefinedMessage: string) => {
     const whatsappUrl = `https://api.whatsapp.com/send/?phone=${mobileNumber}&text=${predefinedMessage}&type=phone_number&app_absent=0`;
@@ -157,7 +157,7 @@ const WhatsAppWidget = () => {
   const renderWidget = () => (
     <div className={style['widget-container']}>
       <button className={style['widget-button']} onClick={toggleModal} style={buttonStyle} title={widget?.button_title}>
-        <img src={iconSrc} alt="WhatsApp" />
+        <img src={iconSrc} alt="WhatsApp" className={style['widget-icon']} />
       </button>
       {modalOpen && (
         <div className={style['modal-container']} style={modalStyle}>
