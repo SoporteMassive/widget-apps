@@ -3,8 +3,8 @@
 
 .widget-button {
   position: fixed !important;
-  width: 120px;
-  height: 120px;
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
   border: 0;
   display: flex;
