@@ -38,7 +38,7 @@ const messages = defineMessages({
   },
 });
 
-const AdminWidgets = () => {
+const AdminWidgets = () => {  
   const [whatsAppWidget, setWhatsAppWidget] = useState<Widget | null>(null);
   const [currentTab, setCurrentTab] = useState(1);
   const [colorHistory, setColorHistory] = useState<Object[]>([]);
