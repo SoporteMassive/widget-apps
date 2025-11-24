@@ -87,7 +87,7 @@ const WhatsAppButton: React.FC = () => {
       <span
         style={{
           textTransform: 'none',
-          fontFamily: 'Montserrat-Bold',
+          fontFamily: 'Poppins-Bold',
           fontSize: '15px',
           padding: '5px 0px',
         }}
