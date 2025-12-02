@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import whatsAppIcon from './../../assets/Icon-WhatsApp.png'
+import whatsAppIcon from './../../assets/widget-whatsapp.png'
 import PublicApi from '../Adapters/PublicApi'
 import { useRuntime } from 'vtex.render-runtime'
 
@@ -53,7 +53,7 @@ const WhatsAppButton: React.FC = () => {
     justifyContent: 'center',
     width: '100%',
     textDecoration: 'none',
-    border: '1px solid #bbb',
+    border: '1px solid #25D366',
     height: '3rem',
     transition: 'all 0.3s ease',
     cursor: 'pointer',
@@ -61,8 +61,8 @@ const WhatsAppButton: React.FC = () => {
   }
 
   const hoveredStyle = {
-    backgroundColor: '#fff',
-    color: 'black',
+    backgroundColor: '#25D366',
+    color: '#fff',
   }
 
   if (!show) {
